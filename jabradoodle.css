@@ -1,21 +1,37 @@
+/* size, shape, color */
 .jab-container{
   display: block;
+  padding: 10px;
+
+  font-family: arial, sans-serif;
   font-size: 14px;
   line-height: 1;
   font-weight: 100;
-
   background-color: #000;
-  color: #879cb4;
-  border: 1px solid #4f7c9e;
-
+  color: #fff;
   cursor: pointer;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.jab-icon{
-  display: inline-block;
-  font-family: arial, sans-serif;
+
+.jab-inline-el{
+  display: none;
+  margin-right: 6px;
 }
 
-.jab-text{
+.jab-inline-el:last-child{
+  margin-right: 0;
+}
+
+/* maintain UI state */
+.jab-show-duration .jab-text-duration,
+.jab-show-status .jab-text-status,
+.jab-show-icons.jab-state-inactive .jab-icon-play,
+.jab-show-icons.jab-state-pause .jab-icon-play,
+.jab-show-icons.jab-state-active .jab-icon-pause{
   display: inline-block;
 }

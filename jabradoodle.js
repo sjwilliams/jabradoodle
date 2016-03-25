@@ -20,6 +20,9 @@
     this.defaultOptions = {
       preload: true, // create audio element on init, or wait to loadAudio() call.
       exclusive: true, // play only one player at a time
+      showduration: true,
+      showprogressbar: true,
+      showelapsedtime: false,
       playtext: 'Play Audio',
       pausetext: 'Pause Audio',
       resumetext: 'Resume Audio',
@@ -44,19 +47,42 @@
         var localSettings = $.extend({}, settings, data);
 
         var markup = [
-          '<div class="jab-container" data-index="">',
-          '<div class="jab-icon jab-icon-play">'+localSettings.playicon+'</div>',
-          '<div class="jab-icon jab-icon-pause">'+localSettings.pauseicon+'</div>',
-          '<div class="jab-text jab-text-status">'+localSettings.playtext+'</div>',
-          '<div class="jab-text jab-text-timecode">'+secondsToTimecode(localSettings.duration)+'</div>',
-          '<div class="jab-progress">',
-          '<div class="jab-bar"></div>',
-          '</div>',
-          '</div>'
+          '<div class="jab-icon jab-inline-el jab-icon-play">'+localSettings.playicon+'</div>',
+          '<div class="jab-icon jab-inline-el jab-icon-pause">'+localSettings.pauseicon+'</div>',
+          '<div class="jab-text jab-inline-el jab-text-status">'+localSettings.playtext+'</div>',
+          '<div class="jab-text jab-inline-el jab-text-duration">'+secondsToTimecode(localSettings.duration)+'</div>',
+          '<div class="jab-progress"><div class="jab-bar"></div></div>'
         ].join('');
 
-        $el.addClass('jab-init jab-state-inactive').append(markup);
 
+        // Classes on the main element dictate what is shown.
+        var initClasses = 'jab-container jab-init jab-state-inactive';
+
+        [{
+          setting: 'playtext',
+          value: 'status'
+        }, {
+          setting: 'playicon',
+          value: 'icons'
+        }, {
+          setting: 'showduration',
+          value: 'duration'
+        }, {
+          setting: 'showprogressbar',
+          value: 'progressbar'
+        }, {
+          setting: 'showelapsedtime',
+          value: 'elapsedtime'
+        }].forEach(function(option){
+          if (localSettings[option.setting]) {
+            initClasses = initClasses + ' jab-show-' + option.value;
+          }
+        });
+
+        $el.addClass(initClasses).append(markup);
+
+
+        // obj represents player as a UI and functionality
         var player = {
           $el: $el,
           $progress: $el.find('.jab-progress'),
@@ -88,33 +114,34 @@
             }
 
             containerClass(el, 'jab-state', 'active');
+            player.$text.html(player.settings.pausetext);
             $el.trigger( 'play', this);
           },
 
           _onPause: function(){
+            var player = this;
             containerClass(el, 'jab-state', 'pause');
+            player.$text.html(player.settings.resumetext);
             $el.trigger( 'pause', this);
           },
 
           _onEnded: function(){
+            var player = this;
             containerClass(el, 'jab-state', 'inactive');
+            player.$text.html(player.settings.playtext);
             $el.trigger( 'ended', this);
           },
 
           _onTimeUpdate: function(){
             var percentComplete;
             var width;
-
-            console.log('time update', this.audio.currentTime);
-
+            // console.log('time update', this.audio.currentTime);
             $el.trigger('timeupdate', this);
           }
         };
 
         // bind play/pause
         player.$el.on('click', function(){
-
-          // load audio if needed.
           player.load();
 
           if (player.audio.paused) {
