@@ -78,6 +78,15 @@
 
           // audio element event handlers
           _onPlay: function(){
+            var player = this;
+
+            // stop other players?
+            if (settings.exclusive) {
+              players.forEach(function(otherPlayer){
+                if (otherPlayer !== player) otherPlayer.audio.pause();
+              });
+            }
+
             containerClass(el, 'jab-state', 'active');
             $el.trigger( 'play', this);
           },
@@ -102,7 +111,7 @@
           }
         };
 
-        // bind click events
+        // bind play/pause
         player.$el.on('click', function(){
 
           // load audio if needed.
