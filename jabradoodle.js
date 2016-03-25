@@ -14,11 +14,11 @@
 }(function($) {
 
   var pluginName = 'jabradoodle';
+  var $body = $('body');
 
   function Plugin(element, options){
-    var that = this;
     this.defaultOptions = {
-      autoload: true, // create audio element on init, or wait to loadAudio() call.
+      preload: true, // create audio element on init, or wait to loadAudio() call.
       exclusive: true, // play only one player at a time
       playtext: 'Play Audio',
       pausetext: 'Pause Audio',
@@ -29,18 +29,18 @@
     };
 
     var settings = $.extend({}, this.defaultOptions, options);
-
-    this.players = [];
+    var players = [];
 
     $(element).each(function(){
-      var $el = $(this);
+      var el = this;
+      var $el = $(el);
       var data = $el.data();
 
       if (!data.src || !data.duration) {
         warn('Each element must have a src and duration. Skipping this one.');
       } else {
 
-        // override any global settings with local ones?
+        // override any global settings with local ones
         var localSettings = $.extend({}, settings, data);
 
         var markup = [
@@ -55,19 +55,73 @@
           '</div>'
         ].join('');
 
-        $el.addClass('jab-init').append(markup);
+        $el.addClass('jab-init jab-state-inactive').append(markup);
 
-        that.players.push({
-          el: $el,
-          progressEl: $el.find('.jab-progress'),
-          barEl: $el.find('.jab-bar'),
-          text: $el.find('.jab-text-status'),
-          loaded: false
+        var player = {
+          $el: $el,
+          $progress: $el.find('.jab-progress'),
+          $bar: $el.find('.jab-bar'),
+          $text: $el.find('.jab-text-status'),
+          settings: localSettings,
+
+          // load and bind events
+          load: function(){
+            if (!this.audio) {
+              this.$audio  = $('<audio class="jab-audio" src="' + this.settings.src + '"></audio>').appendTo($body);
+              this.audio = this.$audio[0];
+              this.$audio.on('play', this._onPlay.bind(this));
+              this.$audio.on('pause', this._onPause.bind(this));
+              this.$audio.on('timeupdate', this._onTimeUpdate.bind(this));
+              this.$audio.on('ended', this._onEnded.bind(this));
+            }
+          },
+
+          // audio element event handlers
+          _onPlay: function(){
+            containerClass(el, 'jab-state', 'active');
+            $el.trigger( 'play', this);
+          },
+
+          _onPause: function(){
+            containerClass(el, 'jab-state', 'pause');
+            $el.trigger( 'pause', this);
+          },
+
+          _onEnded: function(){
+            containerClass(el, 'jab-state', 'inactive');
+            $el.trigger( 'ended', this);
+          },
+
+          _onTimeUpdate: function(){
+            var percentComplete;
+            var width;
+
+            console.log('time update', this.audio.currentTime);
+
+            $el.trigger('timeupdate', this);
+          }
+        };
+
+        // bind click events
+        player.$el.on('click', function(){
+
+          // load audio if needed.
+          player.load();
+
+          if (player.audio.paused) {
+            player.audio.play();
+          } else {
+            player.audio.pause();
+          }
         });
 
-        $el.on('click', 'jab-icon', function(){
-          console.log('clicky');
-        });
+
+        // preload audio?
+        if (player.settings.preload) {
+          player.load();
+        }
+
+        players.push(player);
       }
     });
   }
@@ -118,6 +172,30 @@
     var obj = secondsToTime(secs);
     return obj.m + ':' + obj.s;
   }
+
+
+  /**
+   * Given a prefix string like 'theme' and a value like
+   * 'dark', add 'theme-dark' class to the given element
+   * after removing any other theme-* classes.
+   *
+   * Extracted from, see for details:
+   * https://www.npmjs.com/package/container-class
+   *
+   * @param  {Object} el     Target DOM element
+   * @param  {String} prefix Broad prefix slug/category, before the '-' separator.
+   * @param  {String} value  Specific suffix value, after the '-' separator.
+   */
+  function containerClass(el, prefix, value){
+    var classList = Array.prototype.slice.call(el.classList);
+    classList.forEach(function(c){
+      if (c.lastIndexOf(prefix + '-') === 0 ){
+        el.classList.remove(c);
+      }
+    });
+    el.classList.add(prefix+'-'+value);
+  }
+
 
 
   // Wrapper around the constructor preventing
