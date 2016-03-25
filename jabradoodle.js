@@ -140,6 +140,7 @@
           }
         };
 
+
         // bind play/pause
         player.$el.on('click', function(){
           player.load();

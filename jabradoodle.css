@@ -20,6 +20,8 @@
 
 .jab-inline-el{
   display: none;
+  position: relative;
+  z-index: 2;
   margin-right: 6px;
 }
 
@@ -34,4 +36,26 @@
 .jab-show-icons.jab-state-pause .jab-icon-play,
 .jab-show-icons.jab-state-active .jab-icon-pause{
   display: inline-block;
+}
+
+.jab-progress{
+  display: none;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.jab-show-progressbar.jab-state-active .jab-progress,
+.jab-show-progressbar.jab-state-pause .jab-progress{
+  display: block;
+}
+
+.jab-show-progressbar .jab-bar{
+  width: 0;
+  height: 100%;
+  background-color: #4f7c9e;
+  transition: width 0.4s ease;
 }
