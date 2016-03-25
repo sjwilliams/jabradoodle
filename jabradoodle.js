@@ -144,7 +144,6 @@
               player.$bar.css('width', width);
             }
 
-            // console.log('time update', this.audio.currentTime);
             $el.trigger('timeupdate', this);
           }
         };

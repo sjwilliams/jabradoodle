@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Jabradoodle Test Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css">
+        <link rel="stylesheet" href="jabradoodle.css">
+
+        <style>
+            main{
+                width: calc(100% - 60px);
+                max-width: 400px;
+                padding: 0 30px;
+                margin: 30vh auto;
+            }
+
+            main a{
+                text-decoration: none;
+            }
+
+            h2{
+                margin-top: 90px;
+                margin-bottom: 6px;
+                font-size: 0.9rem;
+            }
+
+            .sample{
+                margin-bottom: 6px;
+            }
+
+            .sample-source{
+                text-align: right;
+                text-transform: uppercase;
+                font-size: 0.6em;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <main>
+
+            <h2>Voice Of America 2015-11-21</h2>
+            <div class="sample" data-duration="109" data-src="https://ia801302.us.archive.org/3/items/VOANewscasts2015-11-21/VOA-newscast-2015-11-21-0000Z.mp3"></div>
+            <div class="sample-source"><a href="https://archive.org/details/VOANewscasts2015-11-21">Source</a></div>
+
+            <h2>2004 State of The Union Address</h2>
+            <div class="sample" data-duration="3253" data-src="https://archive.org/download/2004_SOTU_Complete/SOTU_2004_Complete_MP3.mp3"></div>
+            <div class="sample-source"><a href="https://archive.org/details/2004_SOTU_Complete">Source</a></div>
+        </main>
+
+
+
+        <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+        <script src="jabradoodle.js"></script>
+        <script>
+            $('.sample').jabradoodle();
+        </script>
+    </body>
+</html>
