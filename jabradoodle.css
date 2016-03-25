@@ -56,6 +56,6 @@
 .jab-show-progressbar .jab-bar{
   width: 0;
   height: 100%;
-  background-color: #4f7c9e;
+  background-color: #484848;
   transition: width 0.4s ease;
 }

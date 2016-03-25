@@ -133,8 +133,17 @@
           },
 
           _onTimeUpdate: function(){
+            var player = this;
+            var duration = player.audio.duration || player.settings.duration;
             var percentComplete;
             var width;
+
+            if (duration && duration >= 1) {
+              percentComplete = (player.audio.currentTime / duration);
+              width = Math.floor(player.$progress.width() * percentComplete);
+              player.$bar.css('width', width);
+            }
+
             // console.log('time update', this.audio.currentTime);
             $el.trigger('timeupdate', this);
           }
