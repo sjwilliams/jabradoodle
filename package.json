@@ -2,7 +2,7 @@
   "name": "jabradoodle",
   "version": "0.0.1",
   "description": "JavaScript Audio Button",
-  "main": "index.js",
+  "main": "jabradoodle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
