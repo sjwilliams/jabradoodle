@@ -32,9 +32,11 @@
 
 /* maintain UI state */
 .jab-show-duration .jab-text-duration,
-.jab-show-status .jab-text-status,
+.jab-show-status.jab-state-inactive .jab-text-play,
+.jab-show-status.jab-state-pause .jab-text-resume,
+.jab-show-status.jab-state-active .jab-text-pause,
 .jab-show-icons.jab-state-inactive .jab-icon-play,
-.jab-show-icons.jab-state-pause .jab-icon-play,
+.jab-show-icons.jab-state-pause .jab-icon-resume,
 .jab-show-icons.jab-state-active .jab-icon-pause{
   display: inline-block;
 }

@@ -20,6 +20,8 @@
     this.defaultOptions = {
       preload: true, // create audio element on init, or wait to loadAudio() call.
       exclusive: true, // play only one player at a time
+      iconsmaintainwidth: true,
+      statusmaintainwidth: true,
       showduration: true,
       showprogressbar: true,
       showelapsedtime: false,
@@ -49,7 +51,10 @@
         var markup = [
           '<div class="jab-icon jab-inline-el jab-icon-play">'+localSettings.playicon+'</div>',
           '<div class="jab-icon jab-inline-el jab-icon-pause">'+localSettings.pauseicon+'</div>',
-          '<div class="jab-text jab-inline-el jab-text-status">'+localSettings.playtext+'</div>',
+          '<div class="jab-icon jab-inline-el jab-icon-resume">'+localSettings.resumeicon+'</div>',
+          '<div class="jab-text jab-inline-el jab-text-play">'+localSettings.playtext+'</div>',
+          '<div class="jab-text jab-inline-el jab-text-pause">'+localSettings.pausetext+'</div>',
+          '<div class="jab-text jab-inline-el jab-text-resume">'+localSettings.resumetext+'</div>',
           '<div class="jab-text jab-inline-el jab-text-duration">'+secondsToTimecode(localSettings.duration)+'</div>',
           '<div class="jab-progress"><div class="jab-bar"></div></div>'
         ].join('');
@@ -79,15 +84,24 @@
           }
         });
 
+
+        // Append new markup
         $el.addClass(initClasses).append(markup);
 
+        // Maintain equal spacing between icons / text messages?
+        if (localSettings.iconsmaintainwidth) {
+          equalHorizontalSpacing($('.jab-icon', $el));
+        }
+
+        if (localSettings.statusmaintainwidth) {
+          equalHorizontalSpacing($('.jab-text-status', $el));
+        }
 
         // obj represents player as a UI and functionality
         var player = {
           $el: $el,
           $progress: $el.find('.jab-progress'),
           $bar: $el.find('.jab-bar'),
-          $text: $el.find('.jab-text-status'),
           settings: localSettings,
 
           // load and bind events
@@ -114,21 +128,18 @@
             }
 
             containerClass(el, 'jab-state', 'active');
-            player.$text.html(player.settings.pausetext);
             $el.trigger( 'play', this);
           },
 
           _onPause: function(){
             var player = this;
             containerClass(el, 'jab-state', 'pause');
-            player.$text.html(player.settings.resumetext);
             $el.trigger( 'pause', this);
           },
 
           _onEnded: function(){
             var player = this;
             containerClass(el, 'jab-state', 'inactive');
-            player.$text.html(player.settings.playtext);
             $el.trigger( 'ended', this);
           },
 
@@ -177,6 +188,26 @@
 
   function die(msg){
     throw new Error(pluginName + ': ' + msg);
+  }
+
+
+  function equalHorizontalSpacing($els){
+    var maxWidth = Math.max.apply(null, $els.map(function() {
+      return $(this).width();
+    }).get());
+
+    $els.each(function(){
+      var neededSpace = maxWidth - $(this).width();
+      var leftPadding = Math.floor(neededSpace / 2);
+      var rightPadding = ( (neededSpace / 2) % 2 === 0) ? leftPadding : leftPadding + 1;
+
+      if (neededSpace > 0) {
+        $(this).css({
+          paddingLeft: leftPadding,
+          paddingRight: rightPadding
+        });
+      }
+    });
   }
 
 
