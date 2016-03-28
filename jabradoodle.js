@@ -21,10 +21,10 @@
       preload: true, // create audio element on init, or wait to loadAudio() call.
       exclusive: true, // play only one player at a time
       iconsmaintainwidth: true,
-      statusmaintainwidth: true,
+      statusmaintainwidth: false,
+      buttonmaintainswidth: true,
       showduration: true,
       showprogressbar: true,
-      showelapsedtime: false,
       playtext: 'Play Audio',
       pausetext: 'Pause Audio',
       resumetext: 'Resume Audio',
@@ -61,7 +61,7 @@
 
 
         // Classes on the main element dictate what is shown.
-        var initClasses = 'jab-container jab-init jab-state-inactive';
+        var initClasses = 'jab-container jab-init';
 
         [{
           setting: 'playtext',
@@ -75,9 +75,6 @@
         }, {
           setting: 'showprogressbar',
           value: 'progressbar'
-        }, {
-          setting: 'showelapsedtime',
-          value: 'elapsedtime'
         }].forEach(function(option){
           if (localSettings[option.setting]) {
             initClasses = initClasses + ' jab-show-' + option.value;
@@ -94,7 +91,21 @@
         }
 
         if (localSettings.statusmaintainwidth) {
-          equalHorizontalSpacing($('.jab-text-status', $el));
+          equalHorizontalSpacing($('.jab-text', $el));
+        }
+
+        // Set button to the max possible size of any state
+        if (localSettings.buttonmaintainswidth) {
+          var maxButtonWidth = Math.max.apply(null, [
+            'active',
+            'pause',
+            'inactive' // end on this, the default state
+          ].map(function(state){
+            containerClass(el, 'jab-state', state);
+            return $el.width();
+          }));
+
+          $el.css('min-width', maxButtonWidth);
         }
 
         // obj represents player as a UI and functionality
@@ -193,12 +204,12 @@
 
   function equalHorizontalSpacing($els){
     var maxWidth = Math.max.apply(null, $els.map(function() {
-      return $(this).width();
+      return Math.ceil($(this).width());
     }).get());
 
     $els.each(function(){
       var neededSpace = maxWidth - $(this).width();
-      var leftPadding = Math.floor(neededSpace / 2);
+      var leftPadding = Math.floor(neededSpace / 2); // address rounding issues
       var rightPadding = ( (neededSpace / 2) % 2 === 0) ? leftPadding : leftPadding + 1;
 
       if (neededSpace > 0) {
