@@ -2,22 +2,208 @@
     <head>
         <title>Jabradoodle Test Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="jabradoodle.css">
 
         <style>
-            main{
-                width: calc(100% - 60px);
-                max-width: 400px;
-                padding: 0 30px;
-                margin: 30vh auto;
+            body {
+                background: #FDFAF2;
+                color: #555;
+                font-family:"Helvetica Neue", sans-serif;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 1.4em;
+                padding: 15px 30px 60px 30px;
+                margin: 0 auto;
+                max-width: 1400px;
             }
 
-            main a{
-                text-decoration: none;
+            h1 {
+                font-size: 37px;
+                line-height: 40px;
+                margin: 0 0 18px 0;
+            }
+
+            h2 {
+                color: #333;
+                font-size: 19px;
+                line-height: 21px;
+                margin: 0 0 7px 0;
+            }
+
+            h2 span {
+                font-style: italic;
+            }
+            h3 {
+                font-size: 14px;
+                line-height: 16px;
+                margin: 3px 0 1px 0;
+            }
+            h4 {
+                color: #313131;
+                font-size: 11px;
+                line-height: 11px;
+                text-transform: uppercase;
+                margin: 20px 0 7px 0;
+            }
+            p {
+                font-size: 14px;
+                line-height: 19px;
+                margin: 0 0 16px 0;
+            }
+
+            a {
+                color: #965131;
+            }
+
+            ol {
+                list-style: decimal-leading-zero;
+                color: #000;
+                font-size: 13px;
+                padding-left: 28px;
+                margin: 0;
+            }
+            ol ul, ul ul, ol ol {
+                margin-bottom: 10px;
+            }
+            section {
+                width: 100%;
+                max-width: 560px;
+                margin-bottom: 30px;
+            }
+
+                section.examples{
+                    max-width: 100%;
+                }
+
+               @media all and (min-width: 768px) {
+                    section{
+                        margin-bottom: 60px;
+                    }
+                }
+
+            .intro {
+                color: #000;
+                max-width: 670px;
+                margin-bottom: 30px;
+            }
+            .intro p {
+                font-size: 17px;
+                line-height: 21px;
+                margin-bottom: 0;
+            }
+
+            .example{
+                margin: 0 0 33px 0;
+            }
+
+            .example > p {
+                max-width: 560px;
+                margin: 0 0 9px 0;
+            }
+            .example > img, .example > video, .example > iframe {
+                display: block;
+                width: 100%;
+            }
+            .example.small {
+                width: 60%;
+            }
+            code, .code {
+                display: block;
+                max-width: 600px;
+                margin: 20px 0;
+                padding: 6px 10px;
+                border-radius: 3px;
+                text-align: left;
+                background-color: #535353;
+                border: 1px solid #000000;
+                font-size: 13px;
+                line-height: 19px;
+                overflow: auto;
+                font-family: courier;
+                font-size: 12px;
+                color: #fff;
+            }
+            li .code {
+                display: inline;
+                padding: 1px 3px;
+            }
+
+            .example code, .example .code{
+                max-width: 900px;
+            }
+
+            #forkongithub a {
+                background:#000;
+                color:#fff;
+                text-decoration:none;
+                font-family:arial, sans-serif;
+                text-align:center;
+                font-weight:bold;
+                padding:5px 40px;
+                font-size:1rem;
+                line-height:2rem;
+                position:relative;
+                transition:0.5s;
+            }
+            #forkongithub a:hover {
+                background:#060;
+                color:#fff;
+            }
+            #forkongithub a::before, #forkongithub a::after {
+                content:"";
+                width:100%;
+                display:block;
+                position:absolute;
+                top:1px;
+                left:0;
+                height:1px;
+                background:#fff;
+            }
+            #forkongithub a::after {
+                bottom:1px;
+                top:auto;
+            }
+            @media screen and (min-width:800px) {
+                #forkongithub {
+                    position:fixed;
+                    display:block;
+                    top:0;
+                    right:0;
+                    width:200px;
+                    overflow:hidden;
+                    height:200px;
+                }
+                #forkongithub a {
+                    width:200px;
+                    position:absolute;
+                    top:60px;
+                    right:-60px;
+                    transform:rotate(45deg);
+                    -webkit-transform:rotate(45deg);
+                    box-shadow:3px 4px 10px rgba(0, 0, 0, 0.8);
+                }
+            }
+
+            #releasehistory h4{
+                margin: 0 0 3px 0;
+            }
+
+            #releasehistory ul{
+                margin: 0 0 11px 0;
+                padding: 0px;
+            }
+
+            #releasehistory li{
+                font-size: 13px;
+                line-height: 15px;
+                margin: 0 0 3px 0;
+                padding: 0;
+                list-style-type: none;
             }
 
             h2{
-                margin-top: 90px;
                 margin-bottom: 6px;
                 font-size: 0.9rem;
             }
@@ -26,8 +212,16 @@
                 margin-bottom: 6px;
             }
 
+            .sample-customlook.jab-container{
+              background-color: #eaf2f9;
+              color: #4f7c9e;;
+            }
+
+            .sample-customlook .jab-bar{
+              background-color: #dae6ef;
+            }
+
             .sample-source{
-                text-align: right;
                 text-transform: uppercase;
                 font-size: 0.6em;
             }
@@ -35,19 +229,133 @@
         </style>
     </head>
     <body>
+        <div id="forkongithub"><a href="https://github.com/sjwilliams/jabradoodle">Fork me on GitHub</a></div>
+        <section class="intro">
+            <h1>Jabradoodle</h1>
+            <p>Jabradoodle is a jQuery Audio Button (+ 🐩 ) that makes playing MP3s a walk in the park. You get a Play/Pause button with builtin progress bar. Optionally, you can customize the icons and status text on instantiation and the design with CSS.</p>
+        </section>
 
-        <main>
+        <section class="installation">
+            <h2>Download v0.0.2</h2>
+            <ul>
+                <li><a href="https://github.com/sjwilliams/jabradoodle">GitHub</a></li>
+                <li><span class="code">$ npm install jabradoodle</span></li>
+            </ul>
+        </section>
 
-            <h2>Voice Of America 2015-11-21</h2>
-            <div class="sample" data-duration="109" data-src="https://ia801302.us.archive.org/3/items/VOANewscasts2015-11-21/VOA-newscast-2015-11-21-0000Z.mp3"></div>
-            <div class="sample-source"><a href="https://archive.org/details/VOANewscasts2015-11-21">Source</a></div>
+        <section class="prep">
+            <h2>HTML/CSS Prep</h2>
 
-            <h2>2004 State of The Union Address</h2>
-            <div class="sample" data-duration="3253" data-src="https://archive.org/download/2004_SOTU_Complete/SOTU_2004_Complete_MP3.mp3"></div>
-            <div class="sample-source"><a href="https://archive.org/details/2004_SOTU_Complete">Source</a></div>
-        </main>
+            <p>Be sure to include both the CSS and javascript file in your project. The javascript should come after your jQuery reference.</p>
+             <code>
+                &lt;link rel=&quot;stylesheet&quot; href=&quot;jabradoodle.css&quot;&gt;
+                <br>
+                &lt;script src=&quot;jquery.js&quot;&gt;&lt;/script&gt;
+                <br>
+                &lt;script src=&quot;jabradoodle.js&quot;&gt;&lt;/script&gt;
+             </code>
+        </section>
+
+        <section class="examples">
+            <h2>Example Usage</h2>
+            <div class="example">
+                <h3>Default Usage</h3>
+                <p>The default state includes Play/Pause icons and Play/Pause/Resume status text.</p>
+                <div class="sample" data-duration="72" data-src="//media.joshwilliams.com.s3.amazonaws.com/projects/code/jabradoodle/samples/Dave_Depper_-_Heartstrings.mp3"></div>
 
 
+
+                <pre class="code">
+// html
+&lt;div class=&quot;audio&quot; data-duration=&quot;72&quot; data-src=&quot;heartstrings.mp3&quot;&gt;&lt;/div&gt;
+
+// js
+$(&#39;.audio&#39;).jabradoodle();
+                </pre>
+                <div class="sample-source" xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" about="http://freemusicarchive.org/music/Dave_Depper/Compositions_2/Heartstrings"><span property="dct:title">Heartstrings</span> (<a rel="cc:attributionURL" property="cc:attributionName" href="http://www.needledrop.co/artists/dave-depper">Dave Depper</a>) / <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a></div>
+            </div>
+
+
+            <div class="example">
+                <h3>Customize Text</h3>
+                <p>Use different status text</p>
+                <div class="sample" data-duration="109" data-playtext="Play Newscast" data-pausetext="Pause Newscast" data-resumetext="Resume Newscast" data-src="https://ia801302.us.archive.org/3/items/VOANewscasts2015-11-21/VOA-newscast-2015-11-21-0000Z.mp3"></div>
+
+                <pre class="code">
+// html
+&lt;div class=&quot;audio&quot; data-duration=&quot;109&quot; data-playtext=&quot;Play Newscast&quot; data-pausetext=&quot;Pause Newscast&quot; data-resumetext=&quot;Resume Newscast&quot; data-src=newscast.mp3&quot;&gt;&lt;/div&gt;
+
+// js
+$(&#39;.audio&#39;).jabradoodle();
+                </pre>
+
+
+
+                <div class="sample-source"><a href="https://archive.org/details/VOANewscasts2015-11-21">Public Domain Audio</a></div>
+
+            </div>
+            <div class="example">
+                <h3>No Text</h3>
+                <p>All the text bringing you down? Just pass in empty values.</p>
+                <div class="sample" data-duration="29" data-playtext="" data-pausetext="" data-resumetext="" data-src="//media.joshwilliams.com.s3.amazonaws.com/projects/code/jabradoodle/samples/Dave_Depper_-_Motor_City.mp3"></div>
+                <pre class="code">
+// html
+&lt;div class=&quot;audio&quot; data-duration=&quot;109&quot; data-playtext=&quot;&quot; data-pausetext=&quot;&quot; data-resumetext=&quot;&quot; data-src=motorcity.mp3&quot;&gt;&lt;/div&gt;
+
+// js
+$(&#39;.audio&#39;).jabradoodle();
+                </pre>
+
+                <div class="sample-source" xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" about="http://freemusicarchive.org/music/Dave_Depper/Compositions_2/Motor_City"><span property="dct:title">Motor City</span> (<a rel="cc:attributionURL" property="cc:attributionName" href="http://www.needledrop.co/artists/dave-depper">Dave Depper</a>) / <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a></div>
+            </div>
+
+            <div class="example">
+                <h3>No Progress Bar</h3>
+                <p>Eliminate the moving progress bar.</p>
+
+                <div class="sample" data-duration="31" data-showprogressbar="false" data-src="//media.joshwilliams.com.s3.amazonaws.com/projects/code/jabradoodle/samples/Dave_Depper_-_Pop_Nugget.mp3"></div>
+
+                <pre class="code">
+// html
+&lt;div class=&quot;audio&quot; data-duration=&quot;31&quot; data-showprogressbar=&quot;false&quot; data-src=&quot;popnugget.mp3&quot;&gt;&lt;/div&gt;
+
+// js
+$(&#39;.audio&#39;).jabradoodle();
+                </pre>
+
+
+
+                <div class="sample-source" xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" about="http://freemusicarchive.org/music/Dave_Depper/Compositions_2/Pop_Nugget"><span property="dct:title">Pop Nugget</span> (<a rel="cc:attributionURL" property="cc:attributionName" href="http://www.needledrop.co/artists/dave-depper">Dave Depper</a>) / <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a></div>
+            </div>
+
+            <div class="example">
+                <h3>Custom Look</h3>
+                <p>It's all CSS under the hood.</p>
+                <div class="sample sample-customlook" data-duration="72" data-src="//media.joshwilliams.com.s3.amazonaws.com/projects/code/jabradoodle/samples/Dave_Depper_-_Heartstrings.mp3"></div>
+
+
+
+                <pre class="code">
+// html
+&lt;div class=&quot;audio&quot; data-duration=&quot;72&quot; data-src=&quot;heartstrings.mp3&quot;&gt;&lt;/div&gt;
+
+// css
+.sample-customlook.jab-container{
+  background-color: #eaf2f9;
+  color: #4f7c9e;;
+}
+
+.sample-customlook .jab-bar{
+  background-color: #dae6ef;
+}
+
+// js
+$(&#39;.audio&#39;).jabradoodle();
+                </pre>
+                <div class="sample-source" xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" about="http://freemusicarchive.org/music/Dave_Depper/Compositions_2/Heartstrings"><span property="dct:title">Heartstrings</span> (<a rel="cc:attributionURL" property="cc:attributionName" href="http://www.needledrop.co/artists/dave-depper">Dave Depper</a>) / <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a></div>
+            </div>
+
+        </section>
 
         <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
         <script src="jabradoodle.js"></script>

@@ -18,16 +18,16 @@
 
   function Plugin(element, options){
     this.defaultOptions = {
-      preload: true, // create audio element on init, or wait to loadAudio() call.
+      preload: false, // create audio element on init, or wait to loadAudio() call.
       exclusive: true, // play only one player at a time
       iconsmaintainwidth: true,
       statusmaintainwidth: false,
       buttonmaintainswidth: true,
       showduration: true,
       showprogressbar: true,
-      playtext: 'Play Audio',
-      pausetext: 'Pause Audio',
-      resumetext: 'Resume Audio',
+      playtext: 'Play',
+      pausetext: 'Pause',
+      resumetext: 'Resume',
       playicon: ' &#9658;',
       pauseicon: '&#10073;&#10073;',
       resumeicon: ' &#9658;'
@@ -134,7 +134,9 @@
             // stop other players?
             if (settings.exclusive) {
               players.forEach(function(otherPlayer){
-                if (otherPlayer !== player) otherPlayer.audio.pause();
+                if (otherPlayer !== player && otherPlayer.audio && !otherPlayer.audio.paused) {
+                  otherPlayer.audio.pause();
+                }
               });
             }
 

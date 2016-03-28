@@ -1,6 +1,7 @@
 /* size, shape, color */
 .jab-container{
-  display: block;
+  /*display: block;*/
+  display: table;
   position: relative;
   padding: 10px;
 
