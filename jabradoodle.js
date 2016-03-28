@@ -87,11 +87,11 @@
 
         // Maintain equal spacing between icons / text messages?
         if (localSettings.iconsmaintainwidth) {
-          equalHorizontalSpacing($('.jab-icon', $el));
+          equalHorizontalWidth($('.jab-icon', $el));
         }
 
         if (localSettings.statusmaintainwidth) {
-          equalHorizontalSpacing($('.jab-text', $el));
+          equalHorizontalWidth($('.jab-text', $el));
         }
 
         // Set button to the max possible size of any state
@@ -202,23 +202,12 @@
   }
 
 
-  function equalHorizontalSpacing($els){
+  function equalHorizontalWidth($els){
     var maxWidth = Math.max.apply(null, $els.map(function() {
       return Math.ceil($(this).width());
     }).get());
 
-    $els.each(function(){
-      var neededSpace = maxWidth - $(this).width();
-      var leftPadding = Math.floor(neededSpace / 2); // address rounding issues
-      var rightPadding = ( (neededSpace / 2) % 2 === 0) ? leftPadding : leftPadding + 1;
-
-      if (neededSpace > 0) {
-        $(this).css({
-          paddingLeft: leftPadding,
-          paddingRight: rightPadding
-        });
-      }
-    });
+    $els.width(maxWidth);
   }
 
 
