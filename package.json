@@ -1,6 +1,6 @@
 {
   "name": "jabradoodle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "jQuery Audio Button + 🐩 that makes playing MP3s a walk in the park.",
   "main": "jabradoodle.js",
   "scripts": {
