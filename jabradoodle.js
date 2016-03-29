@@ -1,5 +1,5 @@
 /**
- * @preserve jabradoodle - v0.0.1 - 2016-03-25
+ * @preserve jabradoodle - v0.0.3 - 2016-03-25
  * jQuery Audio Button + 🐩
  * http://sjwilliams.github.io/jabradoodle/
  * Copyright (c) 2016 Josh Williams; Licensed MIT
@@ -14,6 +14,7 @@
 }(function($) {
 
   var pluginName = 'jabradoodle';
+  var statePrefix = 'jab-state';
   var $body = $('body');
 
   function Plugin(element, options){
@@ -36,7 +37,6 @@
 
     var settings = $.extend({}, this.defaultOptions, options);
     var players = [];
-    var statePrefix = 'jab-state';
 
     $(element).each(function(){
       var el = this;
@@ -67,6 +67,9 @@
         var initClasses = 'jab-container jab-init';
 
         [{
+          setting: 'fillcontainer',
+          value: 'fillcontainer'
+        },{
           setting: 'playtext',
           value: 'status'
         }, {

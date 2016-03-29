@@ -1,6 +1,5 @@
 /* size, shape, color */
 .jab-container{
-  /*display: block;*/
   display: table;
   position: relative;
   padding: 10px;
@@ -24,6 +23,11 @@
 .jab-container.jab-post-init{
   transition: background-color 0.4s ease, color 0.4s ease;
 }
+
+.jab-container.jab-show-fillcontainer{
+  display: block;
+}
+
 
 .jab-container:hover{
   color: rgba(255,255,255,1);
