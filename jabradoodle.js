@@ -35,6 +35,7 @@
 
     var settings = $.extend({}, this.defaultOptions, options);
     var players = [];
+    var statePrefix = 'jab-state';
 
     $(element).each(function(){
       var el = this;
@@ -52,6 +53,7 @@
           '<div class="jab-icon jab-inline-el jab-icon-play">'+localSettings.playicon+'</div>',
           '<div class="jab-icon jab-inline-el jab-icon-pause">'+localSettings.pauseicon+'</div>',
           '<div class="jab-icon jab-inline-el jab-icon-resume">'+localSettings.resumeicon+'</div>',
+          '<div class="jab-icon jab-inline-el jab-icon-loader"><div class="jab-loader"></div></div>',
           '<div class="jab-text jab-inline-el jab-text-play">'+localSettings.playtext+'</div>',
           '<div class="jab-text jab-inline-el jab-text-pause">'+localSettings.pausetext+'</div>',
           '<div class="jab-text jab-inline-el jab-text-resume">'+localSettings.resumetext+'</div>',
@@ -99,14 +101,17 @@
           var maxButtonWidth = Math.max.apply(null, [
             'active',
             'pause',
+            'loading',
             'inactive' // end on this, the default state
           ].map(function(state){
-            containerClass(el, 'jab-state', state);
+            containerClass(el, statePrefix, state);
             return $el.width();
           }));
 
           $el.css('min-width', maxButtonWidth);
         }
+
+        $el.addClass('jab-post-init');
 
         // obj represents player as a UI and functionality
         var player = {
@@ -124,10 +129,50 @@
               this.$audio.on('pause', this._onPause.bind(this));
               this.$audio.on('timeupdate', this._onTimeUpdate.bind(this));
               this.$audio.on('ended', this._onEnded.bind(this));
+              this.$audio.on('loadstart', this._onLoadStart.bind(this));
+              this.$audio.on('canplaythrough', this._onLoadEnd.bind(this));
             }
           },
 
+          /**
+           * Return the state of the player. It's
+           * based on the jab-state-* class name
+           * on the container.
+           *
+           * 'jab-state-active' returns 'active', etc.
+           *
+           * @return {String}
+           */
+          getState: function(){
+            var classList = Array.prototype.slice.call(el.classList);
+            for (var i = classList.length - 1; i >= 0; i--) {
+              if (classList[i].lastIndexOf(statePrefix + '-') === 0) {
+                return classList[i].split('-')[2]; // bail early if we find it. and only return the last part of jab-state-active
+              }
+
+            }
+            return; // not found. return undefined.
+          },
+
+
           // audio element event handlers
+          _onLoadStart: function(){
+            this._preLoadingState = this.getState();
+            containerClass(el, statePrefix, 'loading');
+          },
+
+          _onLoadEnd: function(){
+
+            // on return to preLoad state if, in fact,
+            // user has requested a new state, which would
+            // have updated current getState way from 'loading'
+            if (this.getState() === 'loading') {
+              containerClass(el, statePrefix, this._preLoadingState);
+            }
+
+            $el.trigger( 'load', this);
+          },
+
           _onPlay: function(){
             var player = this;
 
@@ -140,19 +185,19 @@
               });
             }
 
-            containerClass(el, 'jab-state', 'active');
+            containerClass(el, statePrefix, 'active');
             $el.trigger( 'play', this);
           },
 
           _onPause: function(){
             var player = this;
-            containerClass(el, 'jab-state', 'pause');
+            containerClass(el, statePrefix, 'pause');
             $el.trigger( 'pause', this);
           },
 
           _onEnded: function(){
             var player = this;
-            containerClass(el, 'jab-state', 'inactive');
+            containerClass(el, statePrefix, 'inactive');
             $el.trigger( 'ended', this);
           },
 

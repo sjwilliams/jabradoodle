@@ -1,7 +1,7 @@
 {
   "name": "jabradoodle",
   "version": "0.0.2",
-  "description": "jQuery Audio Button + 🐩 that makes playing MP3s a walk in the park.",
+  "description": "jQuery Audio Button + 🐩 that makes playing MP3s a walk in the dog park.",
   "main": "jabradoodle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

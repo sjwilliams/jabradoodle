@@ -9,9 +9,10 @@
   font-size: 14px;
   line-height: 1;
   font-weight: 100;
-  background-color: #000;
-  color: #fff;
   cursor: pointer;
+
+  color: rgba(255,255,255,0.77);
+  background-color: rgba(0,0,0,1);
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -19,6 +20,20 @@
   user-select: none;
 }
 
+/* prevent color flash as button sets visual state on init */
+.jab-container.jab-post-init{
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.jab-container:hover{
+  color: rgba(255,255,255,1);
+}
+
+.jab-container.jab-state-loading{
+  color: rgba(255,255,255,0.25);
+  background-color: rgba(0,0,0,0.6);
+  cursor: auto;
+}
 
 .jab-inline-el{
   display: none;
@@ -39,7 +54,9 @@
 .jab-show-status.jab-state-active .jab-text-pause,
 .jab-show-icons.jab-state-inactive .jab-icon-play,
 .jab-show-icons.jab-state-pause .jab-icon-resume,
-.jab-show-icons.jab-state-active .jab-icon-pause{
+.jab-show-icons.jab-state-active .jab-icon-pause,
+.jab-show-icons.jab-state-loading .jab-text-play,
+.jab-show-icons.jab-state-loading .jab-icon-loader{
   display: inline-block;
 }
 
@@ -63,4 +80,54 @@
   height: 100%;
   background-color: #7D7D7D;
   transition: width 0.4s ease;
+}
+
+/**
+ * Spinning Loader, by Luke Hass. MIT.
+ * https://github.com/lukehaas/css-loaders
+ */
+.jab-loader{
+  margin: 0 auto;
+  font-size:10px;
+  position:relative;
+  text-indent:-9999em;
+  border-top:2px solid rgba(255,255,255,0.2);
+  border-right:2px solid rgba(255,255,255,0.2);
+  border-bottom:2px solid rgba(255,255,255,0.2);
+  border-left:2px solid rgba(255,255,255,1);
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation:load8 1.1s infinite linear;
+  animation:jab-loader-spin 1.1s infinite linear;
+}
+
+.jab-loader,
+.jab-loader:after{
+  border-radius:50%;
+  width:8px;
+  height:8px;
+  top: 2px;
+}
+
+@-webkit-keyframes jab-loader-spin {
+  0% {
+    -webkit-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  100% {
+    -webkit-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes jab-loader-spin {
+  0% {
+    -webkit-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  100% {
+    -webkit-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
 }
