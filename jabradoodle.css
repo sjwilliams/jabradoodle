@@ -66,7 +66,10 @@
   transition: width 0.4s ease;
 }
 
-/*.jab-show-icons.jab-state-loading .jab-loader{*/
+/**
+ * Spinning Loader, by Luke Hass. MIT.
+ * https://github.com/lukehaas/css-loaders
+ */
 .jab-loader{
   margin: 0 auto;
   font-size:10px;
