@@ -19,7 +19,7 @@
 
   function Plugin(element, options){
     this.defaultOptions = {
-      preload: false, // create audio element on init and start download, or wait to loadAudio() call.
+      preload: false, // create audio element on init and start download, or wait until button click.
       exclusive: true, // play only one player at a time
       fillcontainer: false, // whether or not the button expands as wide as the container it's in (display block vs display table)
       showduration: true, // show duration in MM:SS format

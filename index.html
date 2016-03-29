@@ -251,17 +251,18 @@
         </section>
 
         <section class="installation">
-            <h2>Download v0.0.2</h2>
+            <h2>Download v0.0.3</h2>
             <ul>
                 <li><a href="https://github.com/sjwilliams/jabradoodle">GitHub</a></li>
                 <li><span class="code">$ npm install jabradoodle</span></li>
             </ul>
         </section>
 
+
         <section class="prep">
             <h2>HTML/CSS Prep</h2>
 
-            <p>Be sure to include both the CSS and javascript file in your project. The javascript should come after your jQuery reference.</p>
+            <p>Be sure to include both the CSS and Javascript file in your project. The Javascript should come after your jQuery reference.</p>
              <code>
                 &lt;link rel=&quot;stylesheet&quot; href=&quot;jabradoodle.css&quot;&gt;
                 <br>
@@ -271,11 +272,54 @@
              </code>
         </section>
 
+        <section class="installation">
+            <h2>Configuration</h2>
+            <p>The player's configurable options may be set on instantiation with JavaScript or with data attributes in the markup.</p>
+            <p>In all cases, you must specify a path to an MP3 and the duration of that MP3 in seconds.</p>
+
+            <pre class="code">
+// Set options with data attributes and cal
+&lt;div class=&quot;audio&quot; data-duration=&quot;72&quot; data-src=&quot;heartstrings.mp3&quot;&gt; data-showprogressbar=&quot;false&quot; &lt;/div&gt;
+$(&#39;.audio&#39;).jabradoodle();
+
+// Set options in JavaScript
+&lt;div class=&quot;audio&quot;&gt;&lt;/div&gt;
+$(&#39;.audio&#39;).jabradoodle({
+    src: 'heartstrings.mp3',
+    duration: 72,
+    showprogressbar: false
+});
+
+// Mix and match. Useful with many players that share common settings but different sources and durations.
+&lt;div class=&quot;audio&quot; data-duration=&quot;72&quot; data-src=&quot;heartstrings.mp3&quot;&gt;&lt;/div&gt;
+$(&#39;.audio&#39;).jabradoodle({
+    showprogressbar: false
+});
+            </pre>
+
+            <h3>Options</h3>
+            <pre class="code">
+preload: false, // create audio element on init and start download, or wait until button click.exclusive: true, // play only one player at a time
+fillcontainer: false, // whether or not the button expands as wide as the container it's in (display block vs display table)
+showduration: true, // show duration in MM:SS format
+showprogressbar: true, // show the moving progress bar in the background
+iconsmaintainwidth: true,
+buttonmaintainswidth: true,
+statusmaintainwidth: false,
+playtext: 'Play',
+pausetext: 'Pause',
+resumetext: 'Resume',
+playicon: ' &#9658;',
+pauseicon: '&#10073;&#10073;',
+resumeicon: ' &#9658;'
+            </pre>
+        </section>
+
         <section class="examples">
             <h2>Example Usage</h2>
             <div class="example">
                 <h3>Default Usage</h3>
-                <p>The default state includes Play/Pause icons and Play/Pause/Resume status text.</p>
+                <p>The default state includes Play/Pause icons and Play/Pause/Resume status text. </p>
                 <div class="sample" data-duration="72" data-src="//media.joshwilliams.com.s3.amazonaws.com/projects/code/jabradoodle/samples/Dave_Depper_-_Heartstrings.mp3"></div>
 
 
