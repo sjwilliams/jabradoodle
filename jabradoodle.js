@@ -18,13 +18,14 @@
 
   function Plugin(element, options){
     this.defaultOptions = {
-      preload: false, // create audio element on init, or wait to loadAudio() call.
+      preload: false, // create audio element on init and start download, or wait to loadAudio() call.
       exclusive: true, // play only one player at a time
+      fillcontainer: false, // whether or not the button expands as wide as the container it's in (display block vs display table)
+      showduration: true, // show duration in MM:SS format
+      showprogressbar: true, // show the moving progress bar in the background
       iconsmaintainwidth: true,
-      statusmaintainwidth: false,
       buttonmaintainswidth: true,
-      showduration: true,
-      showprogressbar: true,
+      statusmaintainwidth: false,
       playtext: 'Play',
       pausetext: 'Pause',
       resumetext: 'Resume',
@@ -113,14 +114,16 @@
 
         $el.addClass('jab-post-init');
 
-        // obj represents player as a UI and functionality
+        // obj represents player UI and functionality
         var player = {
           $el: $el,
           $progress: $el.find('.jab-progress'),
           $bar: $el.find('.jab-bar'),
           settings: localSettings,
 
-          // load and bind events
+          /**
+           * Load and bind events.
+           */
           load: function(){
             if (!this.audio) {
               this.$audio  = $('<audio class="jab-audio" src="' + this.settings.src + '"></audio>').appendTo($body);
@@ -220,7 +223,7 @@
 
         // bind play/pause
         player.$el.on('click', function(){
-          player.load();
+          player.load(); // incase preload was set to false
 
           if (player.audio.paused) {
             player.audio.play();
@@ -235,6 +238,7 @@
           player.load();
         }
 
+        // add to running list of players
         players.push(player);
       }
     });
@@ -259,11 +263,20 @@
 
 
   /**
-   * Convert number of seconds into time object
-   * http://codeaid.net/javascript/convert-seconds-to-hours-minutes-and-seconds-%28javascript%29
+   * Convert number of seconds into object with time parts.
+   *
+   * 92 to:
+   *
+   * {
+   *  h: 0,
+   *  m: 1,
+   *  s: 32
+   * }
+   *
+   * From: http://codeaid.net/javascript/convert-seconds-to-hours-minutes-and-seconds-%28javascript%29
    * Released under http://creativecommons.org/licenses/by/3.0/.
    *
-   * @param Number  seconds, as integer, to convert
+   * @param Number  seconds, as integer
    * @return object
    */
   function secondsToTime(secs){
