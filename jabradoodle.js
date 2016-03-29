@@ -52,6 +52,7 @@
           '<div class="jab-icon jab-inline-el jab-icon-play">'+localSettings.playicon+'</div>',
           '<div class="jab-icon jab-inline-el jab-icon-pause">'+localSettings.pauseicon+'</div>',
           '<div class="jab-icon jab-inline-el jab-icon-resume">'+localSettings.resumeicon+'</div>',
+          '<div class="jab-icon jab-inline-el jab-icon-loader"><div class="jab-loader"></div></div>',
           '<div class="jab-text jab-inline-el jab-text-play">'+localSettings.playtext+'</div>',
           '<div class="jab-text jab-inline-el jab-text-pause">'+localSettings.pausetext+'</div>',
           '<div class="jab-text jab-inline-el jab-text-resume">'+localSettings.resumetext+'</div>',
@@ -99,6 +100,7 @@
           var maxButtonWidth = Math.max.apply(null, [
             'active',
             'pause',
+            'loading',
             'inactive' // end on this, the default state
           ].map(function(state){
             containerClass(el, 'jab-state', state);
