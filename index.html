@@ -214,7 +214,17 @@
 
             .sample-customlook.jab-container{
               background-color: #eaf2f9;
-              color: #4f7c9e;;
+              color: rgba(79, 124, 158, 0.65);
+            }
+
+            .sample-customlook.jab-container:hover{
+                color: rgba(79, 124, 158, 1);
+            }
+
+            .sample-customlook.jab-container.jab-state-loading{
+              color: rgba(79, 124, 158, 0.25);
+              background-color: rgba(243,242,249,0.8);
+              cursor: auto;
             }
 
             .sample-customlook .jab-bar{
@@ -347,7 +357,18 @@ $(&#39;.audio&#39;).jabradoodle();
 // css
 .jab-container{
   background-color: #eaf2f9;
-  color: #4f7c9e;;
+  color: rgba(79, 124, 158, 0.65);
+}
+
+
+.jab-container:hover{
+    color: rgba(79, 124, 158, 1);
+}
+
+.jab-container.jab-state-loading{
+  color: rgba(79, 124, 158, 0.25);
+  background-color: rgba(243,242,249,0.8);
+  cursor: auto;
 }
 
 .jab-bar{

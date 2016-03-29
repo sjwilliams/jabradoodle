@@ -111,6 +111,8 @@
           $el.css('min-width', maxButtonWidth);
         }
 
+        $el.addClass('jab-post-init');
+
         // obj represents player as a UI and functionality
         var player = {
           $el: $el,

@@ -9,9 +9,10 @@
   font-size: 14px;
   line-height: 1;
   font-weight: 100;
-  background-color: #000;
-  color: #fff;
   cursor: pointer;
+
+  color: rgba(255,255,255,0.77);
+  background-color: rgba(0,0,0,1);
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -19,6 +20,20 @@
   user-select: none;
 }
 
+/* prevent color flash as button sets visual state on init */
+.jab-container.jab-post-init{
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.jab-container:hover{
+  color: rgba(255,255,255,1);
+}
+
+.jab-container.jab-state-loading{
+  color: rgba(255,255,255,0.25);
+  background-color: rgba(0,0,0,0.6);
+  cursor: auto;
+}
 
 .jab-inline-el{
   display: none;
@@ -40,6 +55,7 @@
 .jab-show-icons.jab-state-inactive .jab-icon-play,
 .jab-show-icons.jab-state-pause .jab-icon-resume,
 .jab-show-icons.jab-state-active .jab-icon-pause,
+.jab-show-icons.jab-state-loading .jab-text-play,
 .jab-show-icons.jab-state-loading .jab-icon-loader{
   display: inline-block;
 }
