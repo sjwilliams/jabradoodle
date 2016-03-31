@@ -1,5 +1,5 @@
 /**
- * @preserve jabradoodle - v0.0.3 - 2016-03-25
+ * @preserve jabradoodle - v0.0.4 - 2016-03-25
  * jQuery Audio Button + 🐩
  * http://sjwilliams.github.io/jabradoodle/
  * Copyright (c) 2016 Josh Williams; Licensed MIT
@@ -24,6 +24,7 @@
       fillcontainer: false, // whether or not the button expands as wide as the container it's in (display block vs display table)
       showduration: true, // show duration in MM:SS format
       showprogressbar: true, // show the moving progress bar in the background
+      showloader: true, // show the loading icon while audio is downloading
       iconsmaintainwidth: true,
       buttonmaintainswidth: true,
       statusmaintainwidth: false,
@@ -163,27 +164,31 @@
 
           // audio element event handlers
           _onLoadStart: function(){
-            this._preLoadingState = this.getState();
-            containerClass(el, statePrefix, 'loading');
+            if (this.settings.showloader) {
+              this._preLoadingState = this.getState();
+              containerClass(el, statePrefix, 'loading');
+            }
           },
 
           _onLoadEnd: function(){
+            if (this.settings.showloader) {
 
-            // on return to preLoad state if, in fact,
-            // user has requested a new state, which would
-            // have updated current getState way from 'loading'
-            if (this.getState() === 'loading') {
-              containerClass(el, statePrefix, this._preLoadingState);
+              // on return to preLoad state if, in fact,
+              // user has requested a new state, which would
+              // have updated current getState way from 'loading'
+              if (this.getState() === 'loading') {
+                containerClass(el, statePrefix, this._preLoadingState);
+              }
             }
 
-            $el.trigger( 'load', this);
+            $el.trigger('load', this);
           },
 
           _onPlay: function(){
             var player = this;
 
             // stop other players?
-            if (settings.exclusive) {
+            if (player.settings.exclusive) {
               players.forEach(function(otherPlayer){
                 if (otherPlayer !== player && otherPlayer.audio && !otherPlayer.audio.paused) {
                   otherPlayer.audio.pause();
