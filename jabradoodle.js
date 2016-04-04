@@ -1,5 +1,5 @@
 /**
- * @preserve jabradoodle - v0.0.4 - 2016-03-25
+ * @preserve jabradoodle - v0.0.5 - 2016-03-25
  * jQuery Audio Button + 🐩
  * http://sjwilliams.github.io/jabradoodle/
  * Copyright (c) 2016 Josh Williams; Licensed MIT
@@ -114,6 +114,8 @@
           }));
 
           $el.css('min-width', maxButtonWidth);
+        } else {
+          containerClass(el, statePrefix, 'inactive');
         }
 
         $el.addClass('jab-post-init');
