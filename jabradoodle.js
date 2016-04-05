@@ -26,7 +26,7 @@
       showprogressbar: true, // show the moving progress bar in the background
       showloader: true, // show the loading icon while audio is downloading
       iconsmaintainwidth: true,
-      buttonmaintainswidth: true,
+      buttonmaintainwidth: true,
       statusmaintainwidth: false,
       playtext: 'Play',
       pausetext: 'Pause',
@@ -102,7 +102,7 @@
         }
 
         // Set button to the max possible size of any state
-        if (localSettings.buttonmaintainswidth) {
+        if (localSettings.buttonmaintainwidth) {
           var maxButtonWidth = Math.max.apply(null, [
             'active',
             'pause',
