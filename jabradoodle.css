@@ -45,6 +45,7 @@
   z-index: 2;
   margin-right: 6px;
   text-align: center;
+  vertical-align:middle;
 }
 
 .jab-inline-el.jab-text-duration,
@@ -87,6 +88,15 @@
   transition: width 0.4s ease;
 }
 
+/* svg icons */
+.jab-svg-icon{
+  width: 13px;
+}
+
+.jab-icon path{
+  fill: #fff;
+}
+
 /**
  * Spinning Loader, by Luke Hass. MIT.
  * https://github.com/lukehaas/css-loaders
@@ -112,7 +122,6 @@
   border-radius:50%;
   width:8px;
   height:8px;
-  top: 2px;
 }
 
 @-webkit-keyframes jab-loader-spin {
@@ -136,3 +145,5 @@
     transform:rotate(360deg);
   }
 }
+
+

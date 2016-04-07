@@ -1,8 +1,12 @@
 /**
- * @preserve jabradoodle - v0.0.6 - 2016-04-05
+ * @preserve jabradoodle - v0.0.7 - 2016-04-07
  * jQuery Audio Button + 🐩
  * http://sjwilliams.github.io/jabradoodle/
  * Copyright (c) 2016 Josh Williams; Licensed MIT
+ *
+ * SVG Icons by Open Iconic
+ * v1.1.1 | MIT
+ * https://github.com/iconic/open-iconic
  */
 
 (function(factory) {
@@ -16,6 +20,9 @@
   var pluginName = 'jabradoodle';
   var statePrefix = 'jab-state';
   var $body = $('body');
+
+  var PLAYICON = '<div class="jab-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" preserveAspectRatio="xMidYMin slice" width="100%" style="padding-bottom: 100%; height: 1px; overflow: visible"><path d="M0 0v6l6-3-6-3z" transform="translate(1 1)" /></svg></div>';
+  var PAUSEICON = '<div class="jab-svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" preserveAspectRatio="xMidYMin slice" width="100%" style="padding-bottom: 100%; height: 1px; overflow: visible"><path d="M0 0v6h2v-6h-2zm4 0v6h2v-6h-2z" transform="translate(1 1)" /></svg></div>';
 
   function Plugin(element, options){
     this.defaultOptions = {
@@ -31,9 +38,9 @@
       playtext: 'Play',
       pausetext: 'Pause',
       resumetext: 'Resume',
-      playicon: ' &#9658;',
-      pauseicon: '&#10073;&#10073;',
-      resumeicon: ' &#9658;'
+      playicon: PLAYICON,
+      pauseicon: PAUSEICON,
+      resumeicon: PLAYICON
     };
 
     var settings = $.extend({}, this.defaultOptions, options);
