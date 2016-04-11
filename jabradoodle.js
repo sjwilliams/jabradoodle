@@ -1,5 +1,5 @@
 /**
- * @preserve jabradoodle - v0.0.7 - 2016-04-07
+ * @preserve jabradoodle - v0.0.8 - 2016-04-07
  * jQuery Audio Button + 🐩
  * http://sjwilliams.github.io/jabradoodle/
  * Copyright (c) 2016 Josh Williams; Licensed MIT
@@ -32,6 +32,7 @@
       showduration: true, // show duration in MM:SS format
       showprogressbar: true, // show the moving progress bar in the background
       showloader: true, // show the loading icon while audio is downloading
+      countdown: false,
       iconsmaintainwidth: true,
       buttonmaintainwidth: true,
       statusmaintainwidth: false,
@@ -66,7 +67,7 @@
           '<div class="jab-text jab-inline-el jab-text-play">'+localSettings.playtext+'</div>',
           '<div class="jab-text jab-inline-el jab-text-pause">'+localSettings.pausetext+'</div>',
           '<div class="jab-text jab-inline-el jab-text-resume">'+localSettings.resumetext+'</div>',
-          '<div class="jab-text jab-inline-el jab-text-duration">'+secondsToTimecode(localSettings.duration)+'</div>',
+          '<div class="jab-text jab-inline-el jab-text-duration">'+secondsToTimecodeString(localSettings.duration)+'</div>',
           '<div class="jab-progress"><div class="jab-bar"></div></div>'
         ].join('');
 
@@ -132,6 +133,7 @@
           $el: $el,
           $progress: $el.find('.jab-progress'),
           $bar: $el.find('.jab-bar'),
+          $duration: $el.find('.jab-text-duration'),
           settings: localSettings,
 
           /**
@@ -228,9 +230,19 @@
             var width;
 
             if (duration && duration >= 1) {
+
+              // move progress bar
               percentComplete = (player.audio.currentTime / duration);
               width = Math.floor(player.$progress.width() * percentComplete);
               player.$bar.css('width', width);
+
+              // duration text counts down?
+              if (player.settings.countdown) {
+                var displayTime = Math.floor(duration - player.audio.currentTime);
+                displayTime = (displayTime < duration) ? displayTime : duration; // ensure it's smaller than passed in (and perhaps incorrect) duration
+                displayTime = secondsToTimecodeString(displayTime); // convert to 00:00 format.
+                player.$duration.html(displayTime);
+              }
             }
 
             $el.trigger('timeupdate', this);
@@ -321,7 +333,7 @@
    * @param  {Number} secs Timecode in seconds, like: 92
    * @return {String}      Timecdoe as string, like: 1:32
    */
-  function secondsToTimecode(secs){
+  function secondsToTimecodeString(secs){
     var obj = secondsToTime(secs);
     return obj.m + ':' + obj.s;
   }
