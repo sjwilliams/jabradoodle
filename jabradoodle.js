@@ -1,5 +1,5 @@
 /**
- * @preserve jabradoodle - v0.0.8 - 2016-04-07
+ * @preserve jabradoodle - v0.0.9 - 2016-04-11
  * jQuery Audio Button + 🐩
  * http://sjwilliams.github.io/jabradoodle/
  * Copyright (c) 2016 Josh Williams; Licensed MIT
@@ -231,10 +231,18 @@
 
           _onTimeUpdate: function(){
             var player = this;
-            var duration = player.audio.duration || player.settings.duration; // prefer more accurate duration info from player
             var percentComplete;
             var displayTime;
             var width;
+
+            // prefer more accurate duration info from player. Fallback to user input if needed.
+            var duration = (function(){
+              var duration = player.audio.duration || player.settings.duration;
+
+              // Safari + no content length from server returns infinity intead of a number. Fallback if needd.
+              return isFinite(duration) ? duration : player.settings.duration;
+            })();
+
 
             if (duration && duration >= 1) {
 
