@@ -219,13 +219,19 @@
 
           _onEnded: function(){
             var player = this;
+
+            // reset duration text, if needed
+            if (player.settings.countdown) {
+              player.$duration.html(secondsToTimecodeString(player.settings.duration));
+            }
+
             containerClass(el, statePrefix, 'inactive');
             $el.trigger( 'ended', this);
           },
 
           _onTimeUpdate: function(){
             var player = this;
-            var duration = player.audio.duration || player.settings.duration;
+            var duration = player.audio.duration || player.settings.duration; // prefer more accurate duration info from player
             var percentComplete;
             var displayTime;
             var width;
