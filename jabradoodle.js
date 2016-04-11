@@ -227,22 +227,26 @@
             var player = this;
             var duration = player.audio.duration || player.settings.duration;
             var percentComplete;
+            var displayTime;
             var width;
 
             if (duration && duration >= 1) {
 
               // move progress bar
-              percentComplete = (player.audio.currentTime / duration);
-              width = Math.floor(player.$progress.width() * percentComplete);
-              player.$bar.css('width', width);
+              if (player.settings.showprogressbar) {
+                percentComplete = (player.audio.currentTime / duration);
+                width = Math.floor(player.$progress.width() * percentComplete);
+                player.$bar.css('width', width);
+              }
 
               // duration text counts down?
               if (player.settings.countdown) {
-                var displayTime = Math.floor(duration - player.audio.currentTime);
+                displayTime = Math.floor(duration - player.audio.currentTime);
                 displayTime = (displayTime < duration) ? displayTime : duration; // ensure it's smaller than passed in (and perhaps incorrect) duration
                 displayTime = secondsToTimecodeString(displayTime); // convert to 00:00 format.
                 player.$duration.html(displayTime);
               }
+
             }
 
             $el.trigger('timeupdate', this);
