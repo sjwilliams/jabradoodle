@@ -52,13 +52,13 @@
       var $el = $(el);
       var data = $el.data();
 
-      if (!data.src || !data.duration) {
+      // override any global settings with local ones
+      var localSettings = $.extend({}, settings, data);
+
+      if (!localSettings.src || !localSettings.duration) {
         warn('Each element must have a src and duration. Skipping this one.');
       } else {
-
-        // override any global settings with local ones
-        var localSettings = $.extend({}, settings, data);
-
+        
         var markup = [
           '<div class="jab-icon jab-inline-el jab-icon-play">'+localSettings.playicon+'</div>',
           '<div class="jab-icon jab-inline-el jab-icon-pause">'+localSettings.pauseicon+'</div>',
