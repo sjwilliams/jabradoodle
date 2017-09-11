@@ -1,5 +1,5 @@
 /**
- * @preserve jabradoodle - v0.0.9 - 2016-04-11
+ * @preserve jabradoodle - v0.0.11 - 2017-09-11
  * jQuery Audio Button + 🐩
  * http://sjwilliams.github.io/jabradoodle/
  * Copyright (c) 2016 Josh Williams; Licensed MIT
